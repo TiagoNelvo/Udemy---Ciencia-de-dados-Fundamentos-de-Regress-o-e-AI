@@ -47,6 +47,7 @@ column_names[-1]
 
 px.parallel_coordinates(df,color=column_names[-1], dimensions=column_names, title="Parallel Coordenadas Plot")
 
+#   Limpeza de Dados(Remoção de Outliers)
 # Removendo Outliers
 
 column_names
@@ -73,3 +74,65 @@ df_limpo
 df_limpo.describe()
 
 df_limpo.to_excel("003-Dataset_No_Outliers.xlsx")
+
+
+
+#   Padronização de Dados
+df04_a = pd.read_excel('004-Dataset(a).xlsx')
+df04_b = pd.read_excel('004-Dataset(b).xlsx')
+
+df04_a
+
+df04_b
+
+df04_b.describe()
+
+df04_a.plot.kde()
+
+min_value_a = df04_a.min()
+min_value_a
+
+max_value_a = df04_a.max()
+max_value_a
+
+std_value_a = df04_a.std()
+std_value_a
+
+mean_value_a = df04_a.mean()
+mean_value_a
+
+min_value_a[0]
+
+df04_a.iloc[1,0]
+
+df04_a.iloc[2,1]
+
+x_Normalization_a = (df04_a.iloc[2,1]-min_value_a[1])/(max_value_a[1]-min_value_a[1])
+
+x_Normalization_a
+
+x_Standardization_a = (df04_a.iloc[0,0] - mean_value_a[0])/(std_value_a[0])
+
+x_Standardization_a
+
+#   Data Standardization
+
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+
+scaler.fit(df04_a)
+
+scaler.transform(df04_a)
+
+scalerdata = pd.DataFrame(data=scaler.transform(df04_a))
+
+scalerdata.columns= ['X1','X2','Y']
+
+scalerdata
+
+scalerdata.describe()
+
+scalerdata.plot.kde()
+
+
